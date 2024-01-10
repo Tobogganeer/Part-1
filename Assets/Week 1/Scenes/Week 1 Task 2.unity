@@ -200,6 +200,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 180
+  minimumAngle: 1
+  maximumAngle: 70
 --- !u!1 &951262018
 GameObject:
   m_ObjectHideFlags: 0
