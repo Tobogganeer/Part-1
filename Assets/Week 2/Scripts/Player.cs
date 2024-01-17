@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public float speed = 5f;
 
     Rigidbody2D rb;
-    Vector2 input;
+    [HideInInspector] public Vector2 input;
 
     void Start()
     {
