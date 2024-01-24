@@ -26,13 +26,13 @@ public class Car : MonoBehaviour
         float torque = steeringSpeed * -input.x * Time.deltaTime;
         // Only rotate if we are trying to move forwards or backwards
         // This also corrects our backwards steering
-        rb.AddTorque(torque * input.y);
+        rb.AddTorque(torque * input.y * rb.mass);
 
         if (rb.velocity.sqrMagnitude < (maxSpeed * maxSpeed))
         {
             // Do float operations first for better performance (humungous 0.02us savings)
             Vector3 force = transform.up * (input.y * forwardSpeed * Time.deltaTime);
-            rb.AddForce(force);
+            rb.AddForce(force * rb.mass);
         }
     }
 }
