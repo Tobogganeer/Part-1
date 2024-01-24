@@ -10,6 +10,12 @@ public class Cone : MonoBehaviour
     public float minimumImpactVelocity = 10f;
     bool knocked;
 
+    private void Start()
+    {
+        // Rotate randomly upon starting
+        transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360f));
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (knocked)
