@@ -2,7 +2,7 @@ Chosen: Spacewar-esque game
 
 Features to plan: player, asteroids, missiles, black hole, borders
 
-Player.cs:
+Spaceship.cs (player):
 - Accelerates with W/S, rotates with A/D
 - Shoots missiles with space
 - Physics based (has a Rigidbody2D), and will coast around (like space)
@@ -20,17 +20,58 @@ Player.cs:
 
 Asteroid.cs:
 - Physics objects (rigidbody) with a collider
-- Instantiated outside of screen, flying towards the center
+- Instantiated outside of screen, flying towards the center (with a velocity)
 - Have randomized size
 - Spins slightly over time
-- Will be affected by black hole
+- Will be affected by black hole (won't explode)
 - Destroyed by player missiles (perhaps with a little effect)
-- Destroyed after some time (will be after it has left the screen)
-- Destroyed upon being sucked into black hole
+- Destroyed after leaving screen (handled by border)
 - Pseudocode
-  - Variables for the rb, angular velocity, lifetime
-  - Set callback for being sucked into black hole explode)
-  - Rotates and decrements lifetime in Update
+  - Variables for the rb, angular velocity
+  - Set velocity towards the screen in Start
+  - Rotates in Update
   - Exploding due to missiles is handled by missiles
-  - Function Explode()
+  - Function Explode() (shoots rock particles out maybe)
 
+SpaceMissile.cs (missile):
+- Physics object with collider
+- Accelerates over a short time and then cuts the "thruster" and coasts
+- Affected by black hole & explodes upon entering
+- Faces towards its velocity vector
+- Destroys asteroids
+- Pseudocode
+  - Variables for rb, accelerationForce, accelerationTime, timer
+  - Set black hole callback in Start to explode
+  - Decrement & check timer and apply forces in FixedUpdate
+  - Rotate towards velocity in Update using Atan2
+  - Check for collision with asteroid in OnTriggerEnter2D and blow it up
+  - Function Explode() (explosion particles/sprites/animation)
+
+BlackHole.cs:
+- Pulls BlackHoleObjects towards it using Newton's ULOG
+- Spins slowly
+- Destroys objects that are unfortunate enough to fall in
+- Pseudocode
+  - Variable for gravitational force multiplier, mass, spinRate
+  - apply physics in FixedUpdate to all BlackHoleObjects
+  - Detect objects entering in OnTriggerEnter2D, check for BlackHoleObject script and call callback, destroy object
+
+BlackHoleObject.cs:
+- Pulled towards the black hole
+- Calls a function when entering the black hole
+- Pseudocode
+  - Variable for rb, callback
+  - Static list of BlackHoleObjects
+  - Add self to list on start
+  - Remove self from list on destroy
+  - Action<> OnEnterBlackHole called by BlackHole.cs
+
+Border.cs:
+- Checks for players entering the trigger and wraps them around the screen
+- Checks for asteroids/missiles entering and deletes them
+- One on each side of the screen
+- Pseudocode
+  - Variables for tags (for player, asteroid, missile), player teleport position
+  - Check for these tags in OnTriggerEnter2D and take an effect
+    - Delete missiles & asteroids
+    - Teleport players to the other position specified
