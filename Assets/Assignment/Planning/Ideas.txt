@@ -1,0 +1,26 @@
+Infinite driving/car game
+- Procedurally generated path (instantiation)
+- Car controls with physics
+- Triggers for generating new sections & score
+- Collision for detecting crashes (and other cars maybe)
+- Abilities (kinda like mario kart) that use kinematic motion (missiles or smth)
+
+Mini golf
+- Ball moves with physics
+- Course obstacles are kinematic
+- Trigger for hole
+- Wall collision instantiates effects (homebrew particles)
+- Wall collision also makes ball bounce (are physics materials allowed? not a component, but material is on the list...)
+
+Space game (spacewar?)
+- Physics ship
+- Kinematic missiles and asteroids
+- Asteroids are instantiated
+- Collision hit for missiles
+- Trigger for going out of screen area + black hole in middle?
+
+Ping pong thingy with powers
+- Kinematic paddles
+- Physics based ball
+- Collision for paddles/wall
+- Trigger for powerups/abilities

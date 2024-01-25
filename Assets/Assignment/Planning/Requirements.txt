@@ -1,0 +1,25 @@
+Tasks
+- One example of kinematic motion (transform.Translate/Rotate and/or rigidbody2D.MovePosition/MoveRotation)
+- One example of motion using forces
+- Keyboard input (GetKey or GetAxis)
+- One trigger event
+- One collision event
+- Instantiation
+- Version controlled
+
+Constraints
+- No mouse input
+- No packages (except Cinemachine)
+- No importing external assets (except images)
+- No flappy bird game
+- Only the following components
+  - Transform
+  - Sprite Renderer
+  - Box Collider2D, Circle Collider2D, Polygon Collider2D, Edge Collider2D, Capsule Collider2D
+  - Rigidbody2D
+  - Platform Effector2D, Area Effector2D, Point Effector2D, Buoyancy Effector2D, Surface Effector2D
+  - Material
+  - Sprite Shape Controller, Sprite Shape Renderer
+  - Camera, Audio Listener
+  - Cinemachine Brain, Cinemachine Virtual Camera, Cinemachine Confiner2D
+  - Grid, Tilemap, Tilemap Renderer
