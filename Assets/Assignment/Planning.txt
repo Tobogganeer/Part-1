@@ -11,7 +11,7 @@ Spaceship.cs (player):
 - Will have a BlackHoleObject script once it is created (to get pulled towards black hole)
 - Destroyed on being sucked into black hole
 - Pseudocode:
-  - Variables for the rb, speed, rotation speed, fire rate, fire timer, input
+  - Variables for the rb, speed, maxSpeed, rotation speed, fire rate, fire timer, input
   - Set callback for being sucked into black hole (destroy ourselves)
   - Store input and check for missile launches in Update
   - Instantiate a missile if the timer is low enough and space is pressed
