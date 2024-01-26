@@ -14,12 +14,14 @@ public class Spaceship : MonoBehaviour
     public GameObject missilePrefab;
 
     Rigidbody2D rb;
+    new Collider2D collider;
     float fireTimer;
     Vector2 input;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        collider = GetComponent<Collider2D>();
     }
 
     void Update()
@@ -57,7 +59,10 @@ public class Spaceship : MonoBehaviour
     {
         // Gotta wait a hot second
         fireTimer = 60f / fireRateRPM;
-        Instantiate(missilePrefab, transform.position, transform.rotation);
+        GameObject missile = Instantiate(missilePrefab, transform.position, transform.rotation);
+        // Make the missile not collide with us
+        // Do it this way so it will still collide with other players (if ever added)
+        Physics2D.IgnoreCollision(collider, missile.GetComponent<Collider2D>());
     }
 }
 
