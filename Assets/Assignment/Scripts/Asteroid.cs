@@ -41,10 +41,11 @@ public class Asteroid : MonoBehaviour
         Vector2 direction = new Vector2(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle));
         Vector2 step = direction * StepSize;
 
-        Vector2 spawnPoint = Vector3.zero;
-        while (SpaceBattleManager.IsPointInWorld(transform.position))
+        Vector2 spawnPoint = Vector2.zero;
+        while (SpaceBattleManager.IsPointInWorld(spawnPoint))
         {
             // I hope this loop never breaks lol
+            // Edit: it broke
             spawnPoint += step;
         }
 
