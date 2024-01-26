@@ -29,6 +29,11 @@ public class Asteroid : MonoBehaviour
         // Kinematic motion - rotate over time
         transform.Rotate(0, 0, angularVelocity * Time.deltaTime);
     }
+
+    public void Explode()
+    {
+        // TODO: Particle effect
+    }
 }
 
 /*
