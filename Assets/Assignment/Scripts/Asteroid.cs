@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
-    public float angularVelocityRange;
+    public float angularVelocityRange = 360f;
+    public Vector2 randomScale = new Vector2(0.5f, 2.5f);
 
     Rigidbody2D rb;
     float angularVelocity;
@@ -12,7 +13,15 @@ public class Asteroid : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        // Make us spin
         angularVelocity = Random.Range(-angularVelocityRange, angularVelocityRange);
+        // Set a randomized size
+        transform.localScale = Vector3.one * Random.Range(randomScale.x, randomScale.y);
+
+        // Set sprite to a random asteroid (all have similar size & shape, no need to change collider)
+        int numSprites = SpaceBattleManager.Instance.asteroidSprites.Count;
+        Sprite randomSprite = SpaceBattleManager.Instance.asteroidSprites[Random.Range(0, numSprites)];
+        GetComponent<SpriteRenderer>().sprite = randomSprite;
     }
 
     void Update()
