@@ -4,16 +4,60 @@ using UnityEngine;
 
 public class Spaceship : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float speed = 50f;
+    public float maxSpeed = 100f; // Very high
+    public float rotationSpeed = 300f;
+    public float maxRotationSpeed = 360f;
+    public float fireRateRPM = 30f;
+
+    [Space]
+    public GameObject missilePrefab;
+
+    Rigidbody2D rb;
+    float fireTimer;
+    Vector2 input;
+
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        input = new Vector2(-Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        fireTimer -= Time.deltaTime;
+
+        // Fire a missile if we are holding space and have waited long enough
+        if (Input.GetKey(KeyCode.Space) && fireTimer <= 0)
+        {
+            ShootMissile();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (input.y != 0)
+            rb.AddForce(transform.up * input.y * speed * Time.deltaTime);
+
+        float curSpeedSqr = rb.velocity.sqrMagnitude;
+        float maxSpeedSqr = maxSpeed * maxSpeed;
+        // Don't let us get going too fast
+        if (curSpeedSqr > maxSpeedSqr)
+            rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
+
+        float curRotation = rb.angularVelocity;
+        if (input.x > 0 && curRotation < maxRotationSpeed)
+            rb.AddTorque(input.x * rotationSpeed * Time.deltaTime);
+        if (input.x < 0 && curRotation > -maxRotationSpeed)
+            rb.AddTorque(input.x * rotationSpeed * Time.deltaTime);
+    }
+
+    void ShootMissile()
+    {
+        // Gotta wait a hot second
+        fireTimer = 60f / fireRateRPM;
+        Instantiate(missilePrefab, transform.position, transform.rotation);
     }
 }
 
@@ -29,7 +73,6 @@ Spaceship.cs (player):
 - Destroyed on being sucked into black hole
 - Pseudocode:
   - Variables for the rb, speed, maxSpeed, rotation speed, fire rate, fire timer, input
-  - Set callback for being sucked into black hole (destroy ourselves)
   - Store input and check for missile launches in Update
   - Instantiate a missile if the timer is low enough and space is pressed
   - Apply forces and torque in FixedUpdate
