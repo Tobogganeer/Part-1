@@ -12,6 +12,9 @@ public class SpaceBattleManager : MonoBehaviour
 
     public static Vector2 WorldSize { get; private set; }
     public static Rect WorldRect { get; private set; }
+    public static readonly string SpaceshipTag = "Spaceship";
+    public static readonly string AsteroidTag = "Asteroid";
+    public static readonly string SpaceMissileTag = "SpaceMissile";
 
     private void Awake()
     {

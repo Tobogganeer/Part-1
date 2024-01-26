@@ -40,7 +40,7 @@ public class Spaceship : MonoBehaviour
     void FixedUpdate()
     {
         if (input.y != 0)
-            rb.AddForce(transform.up * input.y * speed * Time.deltaTime);
+            rb.AddRelativeForce(Vector2.up * input.y * speed * Time.deltaTime);
 
         float curSpeedSqr = rb.velocity.sqrMagnitude;
         float maxSpeedSqr = maxSpeed * maxSpeed;
@@ -63,6 +63,8 @@ public class Spaceship : MonoBehaviour
         // Make the missile not collide with us
         // Do it this way so it will still collide with other players (if ever added)
         Physics2D.IgnoreCollision(collider, missile.GetComponent<Collider2D>());
+        // Match our velocity
+        missile.GetComponent<Rigidbody2D>().velocity = rb.velocity;
     }
 }
 

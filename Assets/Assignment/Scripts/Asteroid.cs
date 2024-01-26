@@ -68,6 +68,7 @@ public class Asteroid : MonoBehaviour
     public void Explode()
     {
         // TODO: Particle effect
+        Destroy(gameObject);
     }
 }
 
