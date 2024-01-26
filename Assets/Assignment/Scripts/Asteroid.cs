@@ -6,9 +6,12 @@ public class Asteroid : MonoBehaviour
 {
     public float angularVelocityRange = 360f;
     public Vector2 randomScale = new Vector2(0.5f, 2.5f);
+    public Vector2 randomVelocity = new Vector2(2f, 10f);
 
     Rigidbody2D rb;
     float angularVelocity;
+    [HideInInspector]
+    public bool hasEnteredWorld;
 
     void Start()
     {
@@ -22,12 +25,43 @@ public class Asteroid : MonoBehaviour
         int numSprites = SpaceBattleManager.Instance.asteroidSprites.Count;
         Sprite randomSprite = SpaceBattleManager.Instance.asteroidSprites[Random.Range(0, numSprites)];
         GetComponent<SpriteRenderer>().sprite = randomSprite;
+
+        FindRandomSpawnPoint();
+    }
+
+    void FindRandomSpawnPoint()
+    {
+        // This algorithm is naive and no good, but heres the idea
+        // - Choose a random direction vector
+        // - Move us in that direction until we leave the screen
+        // - Set our velocity towards a random point in the screen
+
+        const float StepSize = 3f; // 3 meters seems fine
+        float randomAngle = Random.Range(-Mathf.PI, Mathf.PI); // mmm I love radians
+        Vector2 direction = new Vector2(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle));
+        Vector2 step = direction * StepSize;
+
+        Vector2 spawnPoint = Vector3.zero;
+        while (SpaceBattleManager.IsPointInWorld(transform.position))
+        {
+            // I hope this loop never breaks lol
+            spawnPoint += step;
+        }
+
+        Vector2 randomPoint = SpaceBattleManager.GetRandomPointInWorld();
+        // The direction from our spawn point to the random point, normalized and given a random velocity
+        rb.velocity = (randomPoint - spawnPoint).normalized * Random.Range(randomVelocity.x, randomVelocity.y);
+        rb.position = spawnPoint;
     }
 
     void Update()
     {
         // Kinematic motion - rotate over time
         transform.Rotate(0, 0, angularVelocity * Time.deltaTime);
+        
+        // Check if we have entered the screen at all (to avoid being destroyed by borders)
+        if (!hasEnteredWorld)
+            hasEnteredWorld = SpaceBattleManager.IsPointInWorld(transform.position);
     }
 
     public void Explode()
