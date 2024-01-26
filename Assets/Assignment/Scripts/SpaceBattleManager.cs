@@ -11,6 +11,7 @@ public class SpaceBattleManager : MonoBehaviour
     public List<Sprite> asteroidSprites;
 
     public static Vector2 WorldSize { get; private set; }
+    public static Rect WorldRect { get; private set; }
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class SpaceBattleManager : MonoBehaviour
         Camera cam = Camera.main;
         // The orthographic size is the vertical extents
         WorldSize = new Vector2(cam.orthographicSize * 2f * cam.aspect, cam.orthographicSize * 2f);
+        WorldRect = new Rect(-WorldSize / 2, WorldSize);
     }
 
     /// <summary>
@@ -41,8 +43,7 @@ public class SpaceBattleManager : MonoBehaviour
     /// </summary>
     public static bool IsPointInWorld(Vector2 point)
     {
-        Rect rect = new Rect(Vector2.zero, WorldSize);
-        return rect.Contains(point);
+        return WorldRect.Contains(point);
     }
 
 

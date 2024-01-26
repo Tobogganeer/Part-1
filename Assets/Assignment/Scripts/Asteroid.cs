@@ -49,6 +49,9 @@ public class Asteroid : MonoBehaviour
             spawnPoint += step;
         }
 
+        Debug.Log("Should be false " + SpaceBattleManager.IsPointInWorld(spawnPoint));
+        Debug.Log("Found " + spawnPoint);
+
         Vector2 randomPoint = SpaceBattleManager.GetRandomPointInWorld();
         // The direction from our spawn point to the random point, normalized and given a random velocity
         rb.velocity = (randomPoint - spawnPoint).normalized * Random.Range(randomVelocity.x, randomVelocity.y);
