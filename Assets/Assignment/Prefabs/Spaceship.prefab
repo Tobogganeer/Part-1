@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7716037099343826006}
   m_Layer: 0
   m_Name: Spaceship
-  m_TagString: SpaceMissile
+  m_TagString: Spaceship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
   rotationSpeed: 50
   maxRotationSpeed: 360
   fireRateRPM: 30
-  missilePrefab: {fileID: 0}
+  missilePrefab: {fileID: 8231669329158200521, guid: e5321f472741f5b43990876d5134e29d, type: 3}
 --- !u!50 &6251668327608008922
 Rigidbody2D:
   serializedVersion: 4
