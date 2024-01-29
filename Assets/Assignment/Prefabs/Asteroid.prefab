@@ -100,10 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2737a9a68ed4fe44bab7cc9fb434935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angularVelocityRange: 360
-  randomScale: {x: 0.5, y: 2.5}
-  randomVelocity: {x: 0.5, y: 3.5}
-  hasEnteredWorld: 0
+  angularVelocityRange: 270
+  randomScale: {x: 0.75, y: 2.5}
+  randomVelocity: {x: 0.3, y: 3}
+  timeInWorld: 0
 --- !u!58 &1872079199128762658
 CircleCollider2D:
   m_ObjectHideFlags: 0
