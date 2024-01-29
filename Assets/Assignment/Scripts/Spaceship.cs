@@ -12,6 +12,7 @@ public class Spaceship : MonoBehaviour
 
     [Space]
     public GameObject missilePrefab;
+    public GameObject explosionPrefab;
 
     Rigidbody2D rb;
     new Collider2D collider;
@@ -73,8 +74,8 @@ public class Spaceship : MonoBehaviour
         if (collision.gameObject.CompareTag(SpaceBattleManager.AsteroidTag))
         {
             // Kaboom
-            collision.gameObject.GetComponent<Asteroid>().Explode();
-            Destroy(gameObject);
+            collision.gameObject.GetComponent<Asteroid>().BlowUp();
+            SpaceBattleManager.Explode(gameObject);
         }
     }
 }

@@ -65,7 +65,7 @@ public class Asteroid : MonoBehaviour
             hasEnteredWorld = SpaceBattleManager.IsPointInWorld(transform.position);
     }
 
-    public void Explode()
+    public void BlowUp()
     {
         // TODO: Particle effect
         Destroy(gameObject);

@@ -9,6 +9,7 @@ public class SpaceBattleManager : MonoBehaviour
     public static SpaceBattleManager Instance { get; private set; }
 
     public List<Sprite> asteroidSprites;
+    public GameObject explosionPrefab;
 
     public static Vector2 WorldSize { get; private set; }
     public static Rect WorldRect { get; private set; }
@@ -47,6 +48,17 @@ public class SpaceBattleManager : MonoBehaviour
     public static bool IsPointInWorld(Vector2 point)
     {
         return WorldRect.Contains(point);
+    }
+
+    public static void SpawnExplosion(Vector3 position)
+    {
+        Instantiate(Instance.explosionPrefab, position, Quaternion.identity);
+    }
+
+    public static void Explode(GameObject obj)
+    {
+        SpawnExplosion(obj.transform.position);
+        Destroy(obj);
     }
 
 

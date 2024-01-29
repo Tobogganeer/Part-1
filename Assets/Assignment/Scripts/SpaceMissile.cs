@@ -7,6 +7,9 @@ public class SpaceMissile : MonoBehaviour
     public float accelerationForce = 250f;
     public float accelerationTime = 3f;
 
+    [Space]
+    public GameObject explosionPrefab;
+
     Rigidbody2D rb;
     float timer;
 
@@ -44,15 +47,9 @@ public class SpaceMissile : MonoBehaviour
         if (collision.gameObject.CompareTag(SpaceBattleManager.AsteroidTag))
         {
             // Kaboom
-            collision.gameObject.GetComponent<Asteroid>().Explode();
-            this.Explode();
+            collision.gameObject.GetComponent<Asteroid>().BlowUp();
+            SpaceBattleManager.Explode(gameObject);
         }
-    }
-
-    public void Explode()
-    {
-        // TODO: Explosion fx
-        Destroy(gameObject);
     }
 }
 
