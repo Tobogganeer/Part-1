@@ -13,6 +13,12 @@ public class SpaceBattleManager : MonoBehaviour
     public GameObject asteroidPrefab;
     public int numAsteroids = 10;
 
+    [Space]
+    public GameObject playerPrefab;
+    public GameObject deathScreen;
+    public SpriteRenderer deathCountdown;
+    public List<Sprite> numberSprites;
+
     public static Vector2 WorldSize { get; private set; }
     public static Rect WorldRect { get; private set; }
     public static readonly string SpaceshipTag = "Spaceship";
