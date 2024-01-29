@@ -7,6 +7,9 @@ public class BlackHole : MonoBehaviour
     public float mass = 10000f;
     public float g = 6.673f; // We aren't physically accurate here
 
+    [Space]
+    public GameObject slurp;
+
     private void FixedUpdate()
     {
         foreach (BlackHoleObject obj in BlackHoleObject.All)
@@ -36,7 +39,9 @@ public class BlackHole : MonoBehaviour
             obj.OnEnterBlackHole?.Invoke(obj.gameObject);
 
         // Goodbye :)
-        Destroy(collision.gameObject);
+        Instantiate(slurp, collision.transform.position, Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
+        collision.attachedRigidbody.simulated = false;
+        Destroy(collision.gameObject, 0.25f);
     }
 }
 

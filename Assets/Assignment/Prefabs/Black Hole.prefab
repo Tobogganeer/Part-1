@@ -162,6 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mass: 5000
   g: 0.6673
+  slurp: {fileID: 9042326431797088312, guid: 6696f6086f1f5384f812ca89c7eed970, type: 3}
 --- !u!50 &1941050466799222901
 Rigidbody2D:
   serializedVersion: 4
