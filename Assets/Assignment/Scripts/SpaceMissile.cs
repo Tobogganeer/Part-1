@@ -17,6 +17,9 @@ public class SpaceMissile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         timer = accelerationTime;
+
+        // Hardcoded lifetime
+        Destroy(gameObject, 20f);
     }
 
     void FixedUpdate()
