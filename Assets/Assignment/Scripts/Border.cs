@@ -28,6 +28,12 @@ public class Border : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        if (playerTeleportPosition != null)
+            Gizmos.DrawWireSphere(playerTeleportPosition.position, 2f);
+    }
+
     public enum Axis
     {
         Horizontal,
