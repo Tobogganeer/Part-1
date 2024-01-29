@@ -11,7 +11,7 @@ public class Asteroid : MonoBehaviour
     Rigidbody2D rb;
     float angularVelocity;
     [HideInInspector]
-    public bool hasEnteredWorld;
+    public float timeInWorld;
 
     void Start()
     {
@@ -27,6 +27,9 @@ public class Asteroid : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = randomSprite;
 
         FindRandomSpawnPoint();
+
+        // Hardcoded 30 second life
+        Destroy(gameObject, 30f);
     }
 
     void FindRandomSpawnPoint()
@@ -59,16 +62,22 @@ public class Asteroid : MonoBehaviour
     {
         // Kinematic motion - rotate over time
         transform.Rotate(0, 0, angularVelocity * Time.deltaTime);
-        
-        // Check if we have entered the screen at all (to avoid being destroyed by borders)
-        if (!hasEnteredWorld)
-            hasEnteredWorld = SpaceBattleManager.IsPointInWorld(transform.position);
+
+        // Count how long we have been alive for (to avoid being destroyed by borders pre-emptivly)
+        if (SpaceBattleManager.IsPointInWorld(transform.position))
+            timeInWorld += Time.deltaTime;
     }
 
     public void BlowUp()
     {
         // TODO: Particle effect
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        // Keep a constant amount in the world
+        SpaceBattleManager.SpawnAsteroid();
     }
 }
 

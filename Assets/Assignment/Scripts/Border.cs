@@ -9,7 +9,16 @@ public class Border : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(SpaceBattleManager.AsteroidTag) || collision.CompareTag(SpaceBattleManager.SpaceMissileTag))
+        if (collision.CompareTag(SpaceBattleManager.AsteroidTag))
+        {
+            // Delete this if it has had a chance to live
+            // Buffer for 1.5s to avoid hitting the butt of big asteroids
+            if (collision.GetComponent<Asteroid>().timeInWorld > 1.5f)
+            {
+                SpaceBattleManager.Explode(collision.gameObject);
+            }
+        }
+        else if (collision.CompareTag(SpaceBattleManager.SpaceMissileTag))
         {
             // Delete these yucky things
             SpaceBattleManager.Explode(collision.gameObject);

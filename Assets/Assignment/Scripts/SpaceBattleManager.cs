@@ -10,6 +10,8 @@ public class SpaceBattleManager : MonoBehaviour
 
     public List<Sprite> asteroidSprites;
     public GameObject explosionPrefab;
+    public GameObject asteroidPrefab;
+    public int numAsteroids = 10;
 
     public static Vector2 WorldSize { get; private set; }
     public static Rect WorldRect { get; private set; }
@@ -17,10 +19,20 @@ public class SpaceBattleManager : MonoBehaviour
     public static readonly string AsteroidTag = "Asteroid";
     public static readonly string SpaceMissileTag = "SpaceMissile";
 
+    bool quitting;
+
     private void Awake()
     {
         Instance = this;
         CalculateWorldSize();
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < numAsteroids; i++)
+        {
+            SpawnAsteroid();
+        }
     }
 
     void CalculateWorldSize()
@@ -59,6 +71,18 @@ public class SpaceBattleManager : MonoBehaviour
     {
         SpawnExplosion(obj.transform.position);
         Destroy(obj);
+    }
+
+    public static void SpawnAsteroid()
+    {
+        // Spawn them in a random place (don't hit the black hole)
+        if (!Instance.quitting)
+            Instantiate(Instance.asteroidPrefab, new Vector3(0, 100, 0), Quaternion.identity);
+    }
+
+    private void OnApplicationQuit()
+    {
+        quitting = true;
     }
 
 
