@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8756791415825165275}
   - component: {fileID: 6251668327608008922}
   - component: {fileID: 7716037099343826006}
+  - component: {fileID: 2955012559628629996}
   m_Layer: 0
   m_Name: Spaceship
   m_TagString: Spaceship
@@ -105,6 +106,7 @@ MonoBehaviour:
   maxRotationSpeed: 360
   fireRateRPM: 30
   missilePrefab: {fileID: 8231669329158200521, guid: e5321f472741f5b43990876d5134e29d, type: 3}
+  explosionPrefab: {fileID: 0}
 --- !u!50 &6251668327608008922
 Rigidbody2D:
   serializedVersion: 4
@@ -187,3 +189,15 @@ PolygonCollider2D:
       - {x: 0.4765625, y: -0.4609375}
       - {x: 0.4765625, y: -0.3828125}
   m_UseDelaunayMesh: 0
+--- !u!114 &2955012559628629996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7787504728920087248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0462c166edac504294745bf14543eee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

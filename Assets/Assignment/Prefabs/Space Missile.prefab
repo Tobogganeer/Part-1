@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -8265285022347178758}
   - component: {fileID: -3782346928037140808}
   - component: {fileID: 3132121790948375410}
+  - component: {fileID: 3473480307465528532}
   m_Layer: 0
   m_Name: Space Missile
   m_TagString: SpaceMissile
@@ -101,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   accelerationForce: 750
   accelerationTime: 2
+  explosionPrefab: {fileID: 0}
 --- !u!50 &-3782346928037140808
 Rigidbody2D:
   serializedVersion: 4
@@ -163,3 +165,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.01}
   serializedVersion: 2
   m_Radius: 0.16
+--- !u!114 &3473480307465528532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8231669329158200521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0462c166edac504294745bf14543eee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
