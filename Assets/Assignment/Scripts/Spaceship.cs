@@ -12,7 +12,6 @@ public class Spaceship : MonoBehaviour
 
     [Space]
     public GameObject missilePrefab;
-    public GameObject explosionPrefab;
 
     Rigidbody2D rb;
     new Collider2D collider;
@@ -41,7 +40,7 @@ public class Spaceship : MonoBehaviour
     void FixedUpdate()
     {
         if (input.y != 0)
-            rb.AddRelativeForce(Vector2.up * input.y * speed * Time.deltaTime);
+            rb.AddRelativeForce(Vector2.up * (input.y * speed * rb.mass * Time.deltaTime));
 
         float curSpeedSqr = rb.velocity.sqrMagnitude;
         float maxSpeedSqr = maxSpeed * maxSpeed;
@@ -51,9 +50,9 @@ public class Spaceship : MonoBehaviour
 
         float curRotation = rb.angularVelocity;
         if (input.x > 0 && curRotation < maxRotationSpeed)
-            rb.AddTorque(input.x * rotationSpeed * Time.deltaTime);
+            rb.AddTorque(input.x * rotationSpeed * rb.mass * Time.deltaTime);
         if (input.x < 0 && curRotation > -maxRotationSpeed)
-            rb.AddTorque(input.x * rotationSpeed * Time.deltaTime);
+            rb.AddTorque(input.x * rotationSpeed * rb.mass * Time.deltaTime);
     }
 
     void ShootMissile()

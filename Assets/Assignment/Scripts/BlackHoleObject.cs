@@ -21,12 +21,6 @@ public class BlackHoleObject : MonoBehaviour
         All.Add(this);
     }
 
-    public void EnteredBlackHole()
-    {
-        // Uh oh, time to take appropriate action...
-        OnEnterBlackHole?.Invoke(gameObject);
-    }
-
     private void OnDestroy()
     {
         All.Remove(this);

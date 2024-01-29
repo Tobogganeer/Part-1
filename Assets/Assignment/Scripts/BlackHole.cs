@@ -28,6 +28,16 @@ public class BlackHole : MonoBehaviour
         // Don't apply to ourselves, we are stationary
         other.AddForce(displacement.normalized * (float)force * Time.deltaTime);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Uh oh, time to take appropriate action...
+        if (collision.TryGetComponent(out BlackHoleObject obj))
+            obj.OnEnterBlackHole?.Invoke(obj.gameObject);
+
+        // Goodbye :)
+        Destroy(collision.gameObject);
+    }
 }
 
 /*

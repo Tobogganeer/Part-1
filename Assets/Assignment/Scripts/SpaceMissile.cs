@@ -25,7 +25,7 @@ public class SpaceMissile : MonoBehaviour
         timer -= Time.deltaTime;
 
         if (timer > 0)
-            rb.AddRelativeForce(Vector2.up * accelerationForce * Time.deltaTime);
+            rb.AddRelativeForce(Vector2.up * (accelerationForce * rb.mass * Time.deltaTime));
 
         // It works better without rotation at all
         /*
