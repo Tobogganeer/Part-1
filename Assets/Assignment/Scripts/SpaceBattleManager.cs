@@ -107,6 +107,9 @@ public class SpaceBattleManager : MonoBehaviour
 
     public static void OnPlayerDied()
     {
+        if (Instance.quitting)
+            return;
+
         // I'm not gonna support numbers over 9
         Instance.deathTimer = Mathf.Min(Instance.deathTime, 9f);
         Instance.deathScreen.SetActive(true);

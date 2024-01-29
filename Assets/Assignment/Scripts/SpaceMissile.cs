@@ -7,11 +7,9 @@ public class SpaceMissile : MonoBehaviour
     public float accelerationForce = 250f;
     public float accelerationTime = 3f;
 
-    [Space]
-    public GameObject explosionPrefab;
-
     Rigidbody2D rb;
-    float timer;
+    [HideInInspector]
+    public float timer;
 
     void Start()
     {
