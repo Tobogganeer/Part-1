@@ -15,7 +15,9 @@ public class SpaceBattleManager : MonoBehaviour
 
     [Space]
     public GameObject playerPrefab;
+    public float playerSpawnRadius = 10f;
     public GameObject deathScreen;
+    public float deathTime = 3f;
     public SpriteRenderer deathCountdown;
     public List<Sprite> numberSprites;
 
@@ -26,6 +28,7 @@ public class SpaceBattleManager : MonoBehaviour
     public static readonly string SpaceMissileTag = "SpaceMissile";
 
     bool quitting;
+    float deathTimer;
 
     private void Awake()
     {
@@ -35,10 +38,16 @@ public class SpaceBattleManager : MonoBehaviour
 
     private void Start()
     {
+        // Add some asteroids
         for (int i = 0; i < numAsteroids; i++)
         {
             SpawnAsteroid();
         }
+
+        // Spawn the player
+        SpawnPlayer();
+        // Don't show the death screen
+        deathScreen.SetActive(false);
     }
 
     void CalculateWorldSize()
@@ -86,6 +95,43 @@ public class SpaceBattleManager : MonoBehaviour
             Instantiate(Instance.asteroidPrefab, new Vector3(0, 100, 0), Quaternion.identity);
     }
 
+    void SpawnPlayer()
+    {
+        // Random spawn position around the black hole
+        Vector2 spawnPosition = Random.insideUnitCircle.normalized * playerSpawnRadius;
+        // Random rotation
+        Quaternion spawnRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+
+        Instantiate(playerPrefab, spawnPosition, spawnRotation);
+    }
+
+    public static void OnPlayerDied()
+    {
+        // I'm not gonna support numbers over 9
+        Instance.deathTimer = Mathf.Min(Instance.deathTime, 9f);
+        Instance.deathScreen.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if (deathTimer > 0)
+        {
+            deathTimer -= Time.deltaTime;
+
+            if (deathTimer <= 0)
+            {
+                deathScreen.SetActive(false);
+                SpawnPlayer();
+            }
+            else
+            {
+                deathCountdown.sprite = numberSprites[Mathf.CeilToInt(deathTimer)];
+            }
+        }
+    }
+
+
+
     private void OnApplicationQuit()
     {
         quitting = true;
@@ -106,5 +152,10 @@ public class SpaceBattleManager : MonoBehaviour
             new Vector3(-WorldSize.x / 2, WorldSize.y / 2)
         });
         Gizmos.DrawLineStrip(points, true);
+
+        Gizmos.color = Color.red;
+
+        // Show where the player will spawn
+        Gizmos.DrawWireSphere(transform.position, playerSpawnRadius);
     }
 }

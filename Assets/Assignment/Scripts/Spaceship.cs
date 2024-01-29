@@ -77,6 +77,11 @@ public class Spaceship : MonoBehaviour
             SpaceBattleManager.Explode(gameObject);
         }
     }
+
+    private void OnDestroy()
+    {
+        SpaceBattleManager.OnPlayerDied();
+    }
 }
 
 /*
