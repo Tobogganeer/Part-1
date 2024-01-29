@@ -38,13 +38,13 @@ public class SpaceMissile : MonoBehaviour
         */
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if this is an asteroid
         if (collision.gameObject.CompareTag(SpaceBattleManager.AsteroidTag))
         {
             // Kaboom
-            collision.GetComponent<Asteroid>().Explode();
+            collision.gameObject.GetComponent<Asteroid>().Explode();
             this.Explode();
         }
     }

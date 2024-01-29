@@ -66,6 +66,17 @@ public class Spaceship : MonoBehaviour
         // Match our velocity
         missile.GetComponent<Rigidbody2D>().velocity = rb.velocity;
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Check if this is an asteroid
+        if (collision.gameObject.CompareTag(SpaceBattleManager.AsteroidTag))
+        {
+            // Kaboom
+            collision.gameObject.GetComponent<Asteroid>().Explode();
+            Destroy(gameObject);
+        }
+    }
 }
 
 /*
