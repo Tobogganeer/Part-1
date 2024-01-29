@@ -5,31 +5,27 @@ using UnityEngine;
 public class BlackHole : MonoBehaviour
 {
     public float mass = 10000f;
-    public float gravityMultiplier = 1000f;
+    public float g = 6.673f; // We aren't physically accurate here
 
-    // Start is called before the first frame update
-    void Start()
+    private void FixedUpdate()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach (BlackHoleObject obj in BlackHoleObject.All)
+        {
+            ApplyULOG(obj.rb);
+        }
     }
 
     void ApplyULOG(Rigidbody2D other)
     {
         // Fg = (G * m1 * m2) / d^2
         // G = 6.673x10^-11
-        // Float is too imprecise for this
-        const double G = 0.00000000006673d;
 
-        Vector2 displacement = other.position - (Vector2)transform.position;
+        // From them to us
+        Vector2 displacement = (Vector2)transform.position - other.position;
         float distanceSqr = displacement.sqrMagnitude;
-        double force = G * gravityMultiplier * mass * other.mass;
+        float force = g * mass * other.mass;
         force /= distanceSqr;
+        // Don't apply to ourselves, we are stationary
         other.AddForce(displacement.normalized * (float)force * Time.deltaTime);
     }
 }
