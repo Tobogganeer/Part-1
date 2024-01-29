@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angularVelocityRange: 360
   randomScale: {x: 0.5, y: 2.5}
-  randomVelocity: {x: 1, y: 6}
+  randomVelocity: {x: 0.5, y: 3.5}
   hasEnteredWorld: 0
 --- !u!58 &1872079199128762658
 CircleCollider2D:
